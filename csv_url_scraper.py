@@ -4,16 +4,19 @@ import os
 import sys
 import urllib.request
 import csv
+import argparse
 
+parser = argparse.ArgumentParser()
+parser.add_argument(action='store', dest='csvname', help="CSV Filename")
+parser.add_argument(action='store', dest='urlname', help="Column name with URL")
+args = parser.parse_args()
 opener = urllib.request.build_opener()
 opener.addheaders = [('User-Agent','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36')]
 urllib.request.install_opener(opener)
 
 try:
-    #csvname = sys.argv[1]
-	#url_name = sys.argv[2]
-	csvname = input('CSV file: ')
-	url_name = input('URL column: ')
+	csvname = args.csvname
+	urlname = args.urlname
 except:
 	print ("\nERROR: Please specify csvname and url column name to download\n")	
 	print ("Usage:")
@@ -32,10 +35,10 @@ with open("{0}.csv".format(csvname), 'r') as csvfile:
 			FILE_URL_COL_NUM = None
 			for col_index,col in enumerate(row):
 				# find the index of column that has urls to download
-				if col == url_name:
+				if col == urlname:
 					FILE_URL_COL_NUM = col_index 				
 			if FILE_URL_COL_NUM is None:
-				print ("\nERROR: url column name '"+url_name+"' not found, available options:")	
+				print ("\nERROR: url column name '"+urlname+"' not found, available options:")	
 				for col_index,col in enumerate(row):
 					print (" " + col)	
 				print ("\nUsage:")
@@ -61,4 +64,4 @@ with open("{0}.csv".format(csvname), 'r') as csvfile:
 				except:
 					print ("["+str(row_index)+"] Could not download url: " + file_url)
 		else:
-			print ("["+str(row_index)+"] No " + url_name)
+			print ("["+str(row_index)+"] No " + urlname)

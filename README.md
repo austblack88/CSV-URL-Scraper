@@ -25,7 +25,7 @@ This script creates a new directory with the same name as the input CSV file.
 
 The first row of the CSV serves as a header to identify which column contains the file URLs to be scraped. 
 
-In the following rows, the first column of each row serves as the name of the subdirectory that the respective file will be downloaded to. 
+In the following rows, the first column of each row serves as the name of the subdirectory that the respective file will be downloaded to.
 
 Users will be prompted to enter the name of the CSV file to be used, followed by the name of the column that contains the desired file URLs.
 From there, the files will be downloaded sequentially.
